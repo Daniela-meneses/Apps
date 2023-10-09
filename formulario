@@ -1,0 +1,129 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: InputPage(),
+    );
+  }
+}
+
+class InputPage extends StatefulWidget {
+  @override
+  _InputPageState createState() => _InputPageState();
+}
+
+class _InputPageState extends State<InputPage> {
+  TextEditingController nameController = TextEditingController();
+  TextEditingController lastNameController = TextEditingController();
+  TextEditingController middleNameController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController ageController = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Formulario de Datos'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            TextField(
+              controller: nameController,
+              decoration: InputDecoration(labelText: 'Nombre(s)'),
+            ),
+            TextField(
+              controller: lastNameController,
+              decoration: InputDecoration(labelText: 'Apellido Paterno'),
+            ),
+            TextField(
+              controller: middleNameController,
+              decoration: InputDecoration(labelText: 'Apellido Materno'),
+            ),
+            TextField(
+              controller: phoneController,
+              decoration: InputDecoration(labelText: 'Tel'),
+            ),
+            TextField(
+              controller: emailController,
+              decoration: InputDecoration(labelText: 'Correo Electrónico'),
+            ),
+            TextField(
+              controller: ageController,
+              decoration: InputDecoration(labelText: 'Edad'),
+            ),
+            SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => DisplayPage(
+                      name: nameController.text,
+                      lastName: lastNameController.text,
+                      middleName: middleNameController.text,
+                      phone: phoneController.text,
+                      email: emailController.text,
+                      age: ageController.text,
+                    ),
+                  ),
+                );
+              },
+              child: Text('Enviar Datos'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class DisplayPage extends StatelessWidget {
+  final String name;
+  final String lastName;
+  final String middleName;
+  final String phone;
+  final String email;
+  final String age;
+
+  DisplayPage({
+    required this.name,
+    required this.lastName,
+    required this.middleName,
+    required this.phone,
+    required this.email,
+    required this.age,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Enviar los Datos'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text('Nombre(s): $name'),
+            Text('Apellido Paterno: $lastName'),
+            Text('Apellido Materno: $middleName'),
+            Text('Tel: $phone'),
+            Text('Correo Electrónico: $email'),
+            Text('Edad: $age'),
+          ],
+        ),
+      ),
+    );
+  }
+}
